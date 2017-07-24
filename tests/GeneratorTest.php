@@ -140,13 +140,14 @@ class GeneratorTest extends TestCase
      *
      * @test
      */
-    public function it_should_make_one_model_when_negative_count_is_specified()
+    public function it_should_make_zero_models_when_negative_count_is_specified()
     {
         $generator = Generator::buildFromModel(MockModel::class);
 
         $model = $generator->make(-1);
 
-        $this->assertInstanceOf(MockModel::class, $model);
+        $this->assertInstanceOf(Collection::class, $model);
+        $this->assertCount(0, $model);
     }
 
     /**
@@ -169,14 +170,14 @@ class GeneratorTest extends TestCase
      *
      * @test
      */
-    public function it_should_create_one_model_when_negative_count_is_specified()
+    public function it_should_create_zero_models_when_negative_count_is_specified()
     {
         $generator = Generator::buildFromModel(MockModel::class);
 
         $model = $generator->create(-1);
 
-        $this->assertInstanceOf(MockModel::class, $model);
-        $this->assertEquals(1, $_SERVER['__eloquent.saved']);
+        $this->assertInstanceOf(Collection::class, $model);
+        $this->assertCount(0, $model);
     }
 
     /**

@@ -20,7 +20,7 @@ class Generator
     /**
      * Generator constructor. Private to allow for a builder
      *
-     * @param string  $modelName  The name of the eloquent model  class.
+     * @param string  $modelName  The name of the eloquent model class.
      */
     private function __construct(string $modelName)
     {
@@ -44,12 +44,16 @@ class Generator
      */
     public function make(int $count = 1)
     {
-        if ($count <= 1) {
+        if ($count === 1) {
             return $this->makeModel();
         }
 
         /** @var Model  $model */
         $model = new $this->model;
+
+        if ($count < 1) {
+            return $model->newCollection();
+        }
 
         return $model->newCollection(array_map( function () {
             return $this->makeModel();
@@ -75,14 +79,15 @@ class Generator
         return $models;
     }
 
-    /*
+    /**
      * The construction point for the builder.
      *
-     * @param string  $modelName  The name of the eloquent model class.
+     * @param string  $modelName  The name of the eloquent model class
+     * @return self
      */
     public static function buildFromModel(string $modelName) : Generator
     {
-        return new self($modelName);
+        return new static($modelName);
     }
 
     /**

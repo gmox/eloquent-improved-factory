@@ -112,7 +112,7 @@ class GeneratorTest extends TestCase
      */
     public function it_should_make_many_models_when_count_is_specified()
     {
-        $count = mt_rand(1, 7);
+        $count = mt_rand(2, 7);
 
         $generator = Generator::buildFromModel(MockModel::class);
 

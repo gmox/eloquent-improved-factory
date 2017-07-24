@@ -48,6 +48,7 @@ class Generator
             return $this->makeModel();
         }
 
+        /** @var Model  $model */
         $model = new $this->model;
 
         return $model->newCollection(array_map( function () {
